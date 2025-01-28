@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebCraft Pro - Solutions Digitales</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #3b82f6;
+            --dark-bg: #0f172a;
+            --glass-bg: rgba(15, 23, 42, 0.7);
+        }
+
+        .hero-section {
+            background: linear-gradient(45deg, var(--dark-bg) 40%, rgba(99,102,241,0.1)),
+                        url('https://source.unsplash.com/1600x900/?trust,technology') center/cover;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .value-card {
+            background: var(--glass-bg);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(99,102,241,0.2);
+        }
+
+        .value-card img {
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .value-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .stats-section {
+            background: url('https://source.unsplash.com/1600x900/?growth,chart') center/cover;
+            position: relative;
+        }
+
+        .stats-overlay {
+            background: rgba(15, 23, 42, 0.9);
+        }
+
+        .language-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-btn {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            transform: scale(1.1);
+            background: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                background-position: 60% center;
+            }
+            
+            .language-switcher {
+                top: 10px;
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Language Switcher -->
+<div class="language-switcher">
+    <button class="lang-btn" onclick="changeLanguage('fr')">🇫🇷</button>
+    <button class="lang-btn" onclick="changeLanguage('en')">🇬🇧</button>
+    <button class="lang-btn" onclick="changeLanguage('he')">🇮🇱</button>
+</div>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="#">WebCraft</a>
+        <!-- ... reste de la navigation ... -->
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container text-white">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-3 fw-bold mb-4">Votre Réussite Digitale Commence Ici</h1>
+                <p class="lead mb-4">Solutions technologiques innovantes pour la croissance de votre entreprise</p>
+                <a href="#contact" class="btn btn-primary px-5 py-3">Démarrer Maintenant</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Valeurs -->
+<section class="py-5">
+    <div class="container py-5">
+        <div class="row g-4">
+            <!-- Confiance -->
+            <div class="col-md-6 col-lg-4">
+                <div class="value-card">
+                    <img src="https://source.unsplash.com/600x400/?trust,security" 
+                         alt="Confiance Numérique" 
+                         class="img-fluid">
+                    <div class="p-4">
+                        <h3>Sécurité & Confiance</h3>
+                        <p>Protection avancée des données et conformité RGPD</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technologie -->
+            <div class="col-md-6 col-lg-4">
+                <div class="value-card">
+                    <img src="https://source.unsplash.com/600x400/?innovation,tech" 
+                         alt="Innovation Technologique" 
+                         class="img-fluid">
+                    <div class="p-4">
+                        <h3>Innovation Continue</h3>
+                        <p>Solutions basées sur les dernières technologies web</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Croissance -->
+            <div class="col-md-6 col-lg-4">
+                <div class="value-card">
+                    <img src="https://source.unsplash.com/600x400/?growth,success" 
+                         alt="Croissance Économique" 
+                         class="img-fluid">
+                    <div class="p-4">
+                        <h3>Croissance Garantie</h3>
+                        <p>Augmentation mesurable du trafic et conversions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Statistiques -->
+<section class="stats-section text-white py-5">
+    <div class="stats-overlay">
+        <div class="container py-5">
+            <div class="row text-center g-4">
+                <div class="col-md-3">
+                    <div class="display-4 fw-bold">+150%</div>
+                    <p>Croissance moyenne</p>
+                </div>
+                <div class="col-md-3">
+                    <div class="display-4 fw-bold">99.9%</div>
+                    <p>Disponibilité</p>
+                </div>
+                <div class="col-md-3">
+                    <div class="display-4 fw-bold">24h</div>
+                    <p>Support réactif</p>
+                </div>
+                <div class="col-md-3">
+                    <div class="display-4 fw-bold">A+</div>
+                    <p>Sécurité SSL</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ... autres sections existantes ... -->
+
+<script>
+    // Animation au défilement
+    window.addEventListener('scroll', () => {
+        document.querySelectorAll('.value-card').forEach(card => {
+            const cardTop = card.getBoundingClientRect().top;
+            if(cardTop < window.innerHeight * 0.8) {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }
+        });
+    });
+
+    // Initialiser les animations
+    document.querySelectorAll('.value-card').forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(50px)';
+    });
+</script>
+</body>
+</html>
