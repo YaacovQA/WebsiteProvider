@@ -350,6 +350,10 @@
                 <textarea name="message" rows="5" placeholder="Votre message" required></textarea>
             </div>
             <button type="submit" class="btn">Envoyer le message</button>
+            <input type="hidden" name="_next" value="https://yaacovqa.github.io/WebsiteProvider/index.html">
+            <div class="form-group">
+  <div class="g-recaptcha" data-sitekey="VOTRE_CLE_SITE"></div>
+</div>
         </form>
     </section>
 
@@ -360,7 +364,14 @@
         function changeLanguage(lang) {
             // Implémentation multilingue à compléter
             console.log('Changement langue:', lang);
+            // Dans la section <script>
+document.querySelector('.contact-form').addEventListener('submit', function(e) {
+  const btn = this.querySelector('button[type="submit"]');
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
+  btn.disabled = true;
+});
         }
+        
 
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
