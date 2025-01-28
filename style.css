@@ -17,3 +17,9 @@ tr:hover {
     border: 2px solid var(--primary-color);
     border-radius: 15px;
 }
+@media (prefers-color-scheme: dark) {
+  :root {
+    --dark: #f8f9fa;
+    --light: #212121;
+  }
+}
