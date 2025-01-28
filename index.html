@@ -26,6 +26,7 @@
             --radius: 0.5rem;
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-900) 100%);
         }
 
         * {
@@ -43,6 +44,7 @@
             font-family: 'Segoe UI', system-ui, sans-serif;
             line-height: 1.6;
             color: var(--dark);
+            background: #f8f9fa;
             overflow-x: hidden;
         }
 
@@ -57,25 +59,55 @@
             white-space: nowrap;
             border: 0;
         }
+
+        /* Style asynchrone */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            z-index: 9999;
+            display: grid;
+            place-items: center;
+            transition: opacity 0.3s;
+        }
     </style>
     
-    <!-- Style asynchrone -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
 </head>
 
 <body>
-    <!-- Header Accessible -->
+    <!-- Loader -->
+    <div class="loader">
+        <svg width="64" height="64" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/splash">
+            <g fill="none" fill-rule="evenodd">
+                <g transform="translate(1 1)" stroke-width="2">
+                    <circle stroke-opacity=".5" cx="18" cy="18" r="18"/>
+                    <path d="M36 18c0-9.94-8.06-18-18-18">
+                        <animateTransform attributeName="transform" type="rotate" from="0 18 18" to="360 18 18" dur="1s" repeatCount="indefinite"/>
+                    </path>
+                </g>
+            </g>
+        </svg>
+    </div>
+
+    <!-- Header -->
     <header class="header" role="banner">
-        <nav class="nav-container container" aria-label="Navigation principale">
+        <nav class="nav-container container">
             <a href="/" class="logo" aria-label="Accueil">
-                <span aria-hidden="true">YWS</span>
-                <span class="sr-only">Yaacov Web Solutions</span>
+                <img src="https://via.placeholder.com/120x40.png?text=YWS+Logo" 
+                     alt="Yaacov Web Solutions" 
+                     loading="lazy"
+                     width="120"
+                     height="40">
             </a>
             
             <div class="lang-switcher" role="navigation" aria-label="Sélection de langue">
-                <a href="#fr" hreflang="fr" lang="fr" aria-label="Version française">FR</a>
-                <a href="#il" hreflang="he" lang="he" aria-label="Version hébraïque">עברית</a>
-                <a href="#en" hreflang="en" lang="en" aria-label="English version">EN</a>
+                <a href="#fr" aria-label="Français">🇫🇷</a>
+                <a href="#il" aria-label="Hébreu">🇮🇱</a>
+                <a href="#en" aria-label="Anglais">🇬🇧</a>
             </div>
         </nav>
     </header>
@@ -94,71 +126,71 @@
         </div>
     </section>
 
-    <!-- Trust Badges -->
-    <div class="trust-badges" role="region" aria-labelledby="trust-heading">
-        <div class="container">
-            <h2 id="trust-heading" class="sr-only">Gages de confiance</h2>
-            <ul class="badge-list">
-                <li class="badge-item">
-                    <i class="fas fa-shield-alt" aria-hidden="true"></i>
-                    Garantie satisfait ou remboursé 30 jours
-                </li>
-                <li class="badge-item">
-                    <i class="fas fa-lock" aria-hidden="true"></i>
-                    Paiement sécurisé SSL
-                </li>
-            </ul>
+    <!-- Trust Section -->
+    <section class="trust-section">
+        <div class="container grid">
+            <div class="trust-badges">
+                <div class="badge">
+                    <img src="https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?auto=format&fit=crop&w=400" 
+                         alt="Sécurité SSL" 
+                         loading="lazy"
+                         width="400"
+                         height="300">
+                    <h3>Paiements Sécurisés</h3>
+                </div>
+                <div class="badge">
+                    <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=400" 
+                         alt="Support technique" 
+                         loading="lazy"
+                         width="400"
+                         height="300">
+                    <h3>Support 24/7</h3>
+                </div>
+            </div>
+            <div class="trust-content">
+                <h2>Notre Engagement</h2>
+                <p>Création de sites web haute performance avec :</p>
+                <ul class="value-props">
+                    <li><i class="fas fa-rocket"></i> Temps de chargement optimisés</li>
+                    <li><i class="fas fa-shield-alt"></i> Sécurité renforcée</li>
+                    <li><i class="fas fa-mobile-alt"></i> Design responsive</li>
+                </ul>
+            </div>
         </div>
-    </div>
+    </section>
 
     <!-- Pricing Section -->
-    <section id="pricing" class="section pricing" role="region" aria-labelledby="pricing-heading">
+    <section id="pricing" class="section pricing">
         <div class="container">
-            <h2 id="pricing-heading" class="section-heading">Nos Solutions Clé en Main</h2>
-            
-            <div class="pricing-grid">
-                <!-- Forfait Basique -->
-                <article class="price-card" role="article">
-                    <div class="card-header">
-                        <h3 class="package-name">Basique</h3>
-                        <p class="price"><span aria-hidden="true">2000 - 3000</span> <span class="sr-only">2000 à 3000</span> ₪</p>
-                    </div>
-                    <ul class="features-list">
-                        <li class="feature-item">
-                            <i class="fas fa-check-circle" aria-hidden="true"></i>
-                            Site vitrine (5 pages)
-                        </li>
-                        <!-- Autres features -->
-                    </ul>
-                    <div class="card-footer">
-                        <a href="#contact" class="cta cta-card">Choisir ce forfait</a>
-                    </div>
-                </article>
-
-                <!-- Répéter pour autres forfaits -->
+            <h2 class="section-heading">Nos Solutions Clé en Main</h2>
+            <div class="pricing-table">
+                <table>
+                    <!-- Table content from second code -->
+                </table>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="section contact" role="region" aria-labelledby="contact-heading">
-        <div class="container">
-            <h2 id="contact-heading" class="section-heading">Contact Rapide</h2>
+    <section id="contact" class="section contact">
+        <div class="container grid">
             <form class="contact-form" method="POST" netlify>
-                <div class="form-group">
-                    <label for="name">Nom complet</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <!-- Autres champs -->
-                <button type="submit" class="cta cta-primary">Envoyer la demande</button>
+                <!-- Form fields -->
             </form>
+            <div class="contact-info">
+                <img src="https://images.unsplash.com/photo-1587560699334-bea93391dcef?auto=format&fit=crop&w=600" 
+                     alt="Support client" 
+                     loading="lazy"
+                     width="600"
+                     height="400">
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="footer" role="contentinfo">
-        <div class="container">
-            <!-- Contenu du footer -->
+    <footer class="footer">
+        <div class="container grid">
+            <!-- Footer content -->
         </div>
     </footer>
 
@@ -167,83 +199,82 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- Style complet -->
     <style>
-        /* ===== [SYSTÈME DE DESIGN COMPLET] ===== */
+        /* Optimized CSS */
         .container {
-            width: min(100% - 2rem, 1200px);
+            width: min(100% - 2rem, 1320px);
             margin-inline: auto;
         }
 
-        /* Typographie */
-        h1 { font-size: clamp(2rem, 5vw + 1rem, 3.5rem); }
-        h2 { font-size: clamp(1.75rem, 3vw + 1rem, 2.5rem); }
-        .lead { font-size: clamp(1.1rem, 1.5vw + 1rem, 1.25rem); }
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
 
-        /* Composants */
-        .price-card {
+        .hero {
+            background: var(--gradient) fixed,
+                        url('https://images.unsplash.com/photo-1496171367470-9ed9a91ea931?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 8rem 0;
+            color: var(--light);
+            text-align: center;
+        }
+
+        .trust-section {
+            padding: 4rem 0;
+            background: var(--light);
+        }
+
+        .trust-badges {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .badge {
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .badge:hover {
+            transform: translateY(-5px);
+        }
+
+        .badge img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .pricing-table {
             background: var(--light);
             border-radius: var(--radius);
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
+            overflow-x: auto;
         }
 
-        .cta {
-            display: inline-flex;
-            padding: 0.75rem 2rem;
-            border-radius: var(--radius);
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .cta-primary {
-            background: var(--primary-500);
-            color: var(--light);
-        }
-
-        .whatsapp-float {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: #25D366;
-            color: white;
-            padding: 1rem;
-            border-radius: 50%;
-            aspect-ratio: 1;
-            display: grid;
-            place-items: center;
-            box-shadow: var(--shadow);
-        }
-
-        /* Responsive Design */
         @media (max-width: 768px) {
-            .pricing-grid {
+            .hero {
+                padding: 4rem 0;
+            }
+            
+            .trust-badges {
                 grid-template-columns: 1fr;
             }
-
-            .hero {
-                text-align: center;
-            }
         }
 
-        @media (hover: hover) {
-            .price-card:hover {
-                transform: translateY(-0.5rem);
+        /* Dark mode */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --dark: #f8f9fa;
+                --light: #212121;
             }
-
-            .cta:hover {
-                filter: brightness(1.1);
+            
+            body {
+                background: #121212;
             }
-        }
-
-        /* Accessibilité */
-        :focus-visible {
-            outline: 2px solid var(--primary-500);
-            outline-offset: 2px;
         }
 
         /* Animations */
@@ -252,9 +283,35 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .price-card {
-            animation: fadeIn 0.6s ease forwards;
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Performance optimizations */
+        img {
+            max-width: 100%;
+            height: auto;
+            vertical-align: middle;
+            font-style: italic;
         }
     </style>
+
+    <script>
+        // Loader
+        window.addEventListener('load', () => {
+            document.querySelector('.loader').classList.add('hidden');
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
