@@ -1,224 +1,164 @@
-<!DOCTYPE html>
-<html lang="fr" dir="ltr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Yaacov WebPro Solutions - Création de sites professionnels</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<!-- Ajoutez juste après l'ouverture du body -->
+<div class="cart-toggle">
+    <i class="fas fa-shopping-cart"></i>
+    <span class="cart-count">0</span>
+</div>
+
+<div class="cart">
+    <h3>Votre Panier</h3>
+    <div class="cart-items"></div>
+    <div class="cart-total">Total: 0 ₪</div>
+    <div id="paypal-button-container"></div>
+</div>
+
+<!-- Ajoutez dans la section style -->
+<style>
+.cart {
+    position: fixed;
+    right: -300px;
+    top: 0;
+    width: 300px;
+    height: 100vh;
+    background: white;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    transition: right 0.3s;
+    z-index: 1001;
+    padding: 20px;
+}
+
+.cart.active {
+    right: 0;
+}
+
+.cart-toggle {
+    position: fixed;
+    right: 30px;
+    top: 80px;
+    background: var(--primary);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1002;
+}
+
+.cart-items {
+    margin-top: 20px;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+
+.cart-item {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.remove-item {
+    color: red;
+    cursor: pointer;
+}
+
+.cart-total {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+#paypal-button-container {
+    margin-top: 20px;
+}
+</style>
+
+<!-- Ajoutez juste avant la fermeture de body -->
+<!-- PayPal SDK -->
+<script src="https://www.paypal.com/sdk/js?client-id=VOTRE_CLIENT_ID&currency=ILS"></script>
+
+<script>
+// Gestion du panier
+let cart = [];
+
+function updateCart() {
+    const cartItems = document.querySelector('.cart-items');
+    const cartCount = document.querySelector('.cart-count');
+    cartItems.innerHTML = '';
     
-    <!-- Styles -->
-    <style>
-        /* Styles existants... */
-        /* Ajout des styles pour le panier */
-        .cart {
-            position: fixed;
-            right: -300px;
-            top: 0;
-            width: 300px;
-            height: 100vh;
-            background: white;
-            box-shadow: -2px 0 5px rgba(0,0,0,0.1);
-            transition: right 0.3s;
-            z-index: 1001;
-            padding: 20px;
-        }
-
-        .cart.active {
-            right: 0;
-        }
-
-        .cart-toggle {
-            position: fixed;
-            right: 30px;
-            top: 80px;
-            background: var(--primary);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            z-index: 1002;
-        }
-
-        .cart-items {
-            margin-top: 20px;
-            max-height: calc(100vh - 200px);
-            overflow-y: auto;
-        }
-
-        .cart-item {
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .remove-item {
-            color: red;
-            cursor: pointer;
-        }
-
-        .cart-total {
-            margin-top: 20px;
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-
-        #paypal-button-container {
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
-    <!-- Code existant jusqu'à la grille tarifaire... -->
-
-    <!-- Panier -->
-    <div class="cart-toggle">
-        <i class="fas fa-shopping-cart"></i>
-        <span class="cart-count">0</span>
-    </div>
-
-    <div class="cart">
-        <h3>Votre Panier</h3>
-        <div class="cart-items"></div>
-        <div class="cart-total">Total: 0 ₪</div>
-        <div id="paypal-button-container"></div>
-    </div>
-
-    <!-- Grille tarifaire modifiée -->
-    <section id="pricing" class="pricing">
-        <div class="pricing-grid">
-            <!-- Forfait Basique -->
-            <div class="pricing-card">
-                <h3>Site Vitrine</h3>
-                <div class="price">2000 ₪</div>
-                <ul>
-                    <li>✓ Jusqu'à 5 pages</li>
-                    <li>✓ Design moderne</li>
-                    <li>✓ Responsive design</li>
-                    <li>✓ Hébergement inclus</li>
-                </ul>
-                <button class="btn add-to-cart" data-name="Site Vitrine" data-price="2000">Ajouter au panier</button>
+    let total = 0;
+    cart.forEach(item => {
+        total += item.price;
+        cartItems.innerHTML += `
+            <div class="cart-item">
+                <span>${item.name}</span>
+                <span>${item.price} ₪</span>
+                <span class="remove-item" data-name="${item.name}">×</span>
             </div>
+        `;
+    });
 
-            <!-- Forfait Intermédiaire -->
-            <div class="pricing-card">
-                <div class="badge">Populaire</div>
-                <h3>Boutique en ligne</h3>
-                <div class="price">4000 ₪</div>
-                <ul>
-                    <li>✓ Jusqu'à 20 produits</li>
-                    <li>✓ Paiements sécurisés</li>
-                    <li>✓ Gestion de livraison</li>
-                    <li>✓ Formation incluse 2h</li>
-                </ul>
-                <button class="btn add-to-cart" data-name="Boutique en ligne" data-price="4000">Ajouter au panier</button>
-            </div>
+    document.querySelector('.cart-total').textContent = `Total: ${total} ₪`;
+    cartCount.textContent = cart.length;
 
-            <!-- Forfait Premium -->
-            <div class="pricing-card">
-                <h3>Solution Premium</h3>
-                <div class="price">8000 ₪</div>
-                <ul>
-                    <li>✓ Site 100% sur mesure</li>
-                    <li>✓ Multi-langues</li>
-                    <li>✓ Support premium</li>
-                    <li>✓ Assistance 1 mois</li>
-                </ul>
-                <button class="btn add-to-cart" data-name="Solution Premium" data-price="8000">Ajouter au panier</button>
-            </div>
-        </div>
-    </section>
+    // Mise à jour des boutons PayPal
+    if (cart.length > 0) {
+        initPayPalButton(total);
+    }
+}
 
-    <!-- Reste du code existant... -->
-
-    <!-- Scripts -->
-    <!-- PayPal SDK -->
-    <script src="https://www.paypal.com/sdk/js?client-id=VOTRE_CLIENT_ID&currency=ILS"></script>
-    
-    <script>
-        // Code existant...
-
-        // Gestion du panier
-        let cart = [];
+// Modification des boutons existants
+document.querySelectorAll('.pricing-card .btn').forEach(button => {
+    button.textContent = 'Ajouter au panier';
+    button.addEventListener('click', () => {
+        const card = button.closest('.pricing-card');
+        const name = card.querySelector('h3').textContent;
+        const priceText = card.querySelector('.price').textContent;
+        const price = parseInt(priceText);
         
-        function updateCart() {
-            const cartItems = document.querySelector('.cart-items');
-            const cartCount = document.querySelector('.cart-count');
-            cartItems.innerHTML = '';
-            
-            let total = 0;
-            cart.forEach(item => {
-                total += item.price;
-                cartItems.innerHTML += `
-                    <div class="cart-item">
-                        <span>${item.name}</span>
-                        <span>${item.price} ₪</span>
-                        <span class="remove-item" data-name="${item.name}">×</span>
-                    </div>
-                `;
+        cart.push({ name, price });
+        updateCart();
+        document.querySelector('.cart').classList.add('active');
+    });
+});
+
+// Ouverture/fermeture du panier
+document.querySelector('.cart-toggle').addEventListener('click', () => {
+    document.querySelector('.cart').classList.toggle('active');
+});
+
+// Suppression d'articles
+document.querySelector('.cart-items').addEventListener('click', (e) => {
+    if (e.target.classList.contains('remove-item')) {
+        const name = e.target.getAttribute('data-name');
+        cart = cart.filter(item => item.name !== name);
+        updateCart();
+    }
+});
+
+// Initialisation des boutons PayPal
+function initPayPalButton(total) {
+    const container = document.querySelector('#paypal-button-container');
+    container.innerHTML = '';
+    
+    paypal.Buttons({
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: total,
+                        currency_code: 'ILS'
+                    }
+                }]
             });
-
-            document.querySelector('.cart-total').textContent = `Total: ${total} ₪`;
-            cartCount.textContent = cart.length;
-
-            // Mise à jour des boutons PayPal
-            if (cart.length > 0) {
-                initPayPalButton(total);
-            }
-        }
-
-        // Gestion des boutons "Ajouter au panier"
-        document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', () => {
-                const name = button.getAttribute('data-name');
-                const price = parseInt(button.getAttribute('data-price'));
-                cart.push({ name, price });
+        },
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                alert('Transaction complétée par ' + details.payer.name.given_name);
+                cart = [];
                 updateCart();
-                document.querySelector('.cart').classList.add('active');
+                document.querySelector('.cart').classList.remove('active');
             });
-        });
-
-        // Ouverture/fermeture du panier
-        document.querySelector('.cart-toggle').addEventListener('click', () => {
-            document.querySelector('.cart').classList.toggle('active');
-        });
-
-        // Suppression d'articles
-        document.querySelector('.cart-items').addEventListener('click', (e) => {
-            if (e.target.classList.contains('remove-item')) {
-                const name = e.target.getAttribute('data-name');
-                cart = cart.filter(item => item.name !== name);
-                updateCart();
-            }
-        });
-
-        // Initialisation des boutons PayPal
-        function initPayPalButton(total) {
-            const container = document.querySelector('#paypal-button-container');
-            container.innerHTML = '';
-            
-            paypal.Buttons({
-                createOrder: function(data, actions) {
-                    return actions.order.create({
-                        purchase_units: [{
-                            amount: {
-                                value: total,
-                                currency_code: 'ILS'
-                            }
-                        }]
-                    });
-                },
-                onApprove: function(data, actions) {
-                    return actions.order.capture().then(function(details) {
-                        alert('Transaction complétée par ' + details.payer.name.given_name);
-                        cart = [];
-                        updateCart();
-                        document.querySelector('.cart').classList.remove('active');
-                    });
-                }
-            }).render(container);
         }
-    </script>
-</body>
-</html>
+    }).render(container);
+}
+</script>
