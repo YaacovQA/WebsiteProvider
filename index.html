@@ -302,7 +302,8 @@
                     <li>✓ Responsive design</li>
                     <li>✓ Hébergement inclus</li>
                 </ul>
-              <!--  <button class="btn">Ajouter au panier</button> -->
+              <!--  <button id="add-to-cart">Ajouter au panier</button> -->
+                
 
             </div>
 
@@ -317,7 +318,7 @@
                     <li>✓ Gestion de livraison</li>
                     <li>✓ Formation incluse 2h</li>
                 </ul>
-                <button class="btn">Ajouter au panier</button>
+                <button id="add-to-cart">Ajouter au panier</button>
             </div>
 
             <!-- Forfait Premium -->
@@ -330,7 +331,7 @@
                     <li>✓ Support premium</li>
                     <li>✓ Assistance 1 mois</li>
                 </ul>
-                <button class="btn">Ajouter au panier</button>
+                <button id="add-to-cart">Ajouter au panier</button>
             </div>
         </div>
     </section>
@@ -361,6 +362,18 @@
     
     <!-- Scripts -->
     <script>
+        let panier = [];
+
+document.getElementById('add-to-cart').addEventListener('click', function() {
+    let produit = {
+        id: 1,
+        nom: 'Nom du produit',
+        prix: 29.99
+    };
+    panier.push(produit);
+    console.log(panier);
+});
+
         // Gestion du changement de langue
         function changeLanguage(lang) {
             // Implémentation multilingue à compléter
