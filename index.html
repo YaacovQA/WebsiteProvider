@@ -7,16 +7,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://www.paypal.com/sdk/js?client-id=VOTRE_ID_CLIENT_PAYPAL&currency=EUR"></script>
     
+    <!-- Styles -->
     <style>
-        /* Variables globales */
-        :root {
-            --primary: #2563eb;
-            --secondary: #1e40af;
-            --accent: #f59e0b;
-            --light: #f8fafc;
-        }
 
-        /* Reset et styles de base */
+        a.btn {
+    color: white;
+    text-decoration: none; /* Supprime le soulignement par défaut */
+}
+
+a.btn:hover {
+    text-decoration: underline; /* Ajoute un soulignement au survol */
+    color: #FFD700; /* Change la couleur du texte au survol */
+}
+
+        
+        /* Reset et polices */
         * {
             margin: 0;
             padding: 0;
@@ -24,37 +29,19 @@
             font-family: 'Segoe UI', sans-serif;
         }
 
+        :root {
+            --primary: #2563eb;
+            --secondary: #1e40af;
+            --accent: #f59e0b;
+            --light: #f8fafc;
+        }
+
         body {
             line-height: 1.6;
             color: #334155;
         }
 
-        /* Styles des boutons et liens */
-        .btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .btn:hover {
-            background: #2980b9;
-        }
-
-        a.btn {
-            color: white;
-            text-decoration: none;
-        }
-
-        a.btn:hover {
-            text-decoration: underline;
-            color: #FFD700;
-        }
-
-        /* Header styles */
+        /* Header */
         header {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
@@ -78,7 +65,7 @@
             font-weight: bold;
         }
 
-        /* Hero section styles */
+        /* Section héro */
         .hero {
             padding: 8rem 2rem 4rem;
             text-align: center;
@@ -104,7 +91,23 @@
             margin: 0 auto;
         }
 
-        /* Pricing section styles */
+        .hero-subtitle {
+            font-size: 1.25rem;
+            margin: 2rem 0;
+            font-weight: 500;
+        }
+
+        .trust-badge {
+            margin-top: 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50px;
+        }
+
+        /* Grille tarifaire */
         .pricing {
             padding: 4rem 2rem;
             background: var(--light);
@@ -117,61 +120,97 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-
-        .pricing-card {
-            background: white;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-            position: relative;
-        }
-
-        /* Cart styles */
-        .cart-modal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.2);
-            z-index: 2000;
-            display: none;
-            max-width: 90%;
-            width: 500px;
-        }
-
-        .cart-overlay {
+        
+        /* Ajouts pour le panier */
+        .cart-panel {
             position: fixed;
             top: 0;
-            left: 0;
+            right: -400px;
+            width: 400px;
+            height: 100%;
+            background: white;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+            transition: 0.3s;
+            z-index: 2000;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .cart-panel.active {
             right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 1999;
-            display: none;
         }
 
-        /* Responsive styles */
-        @media (max-width: 768px) {
-            .hero {
-                padding-top: 6rem;
-            }
-            
-            .pricing-grid {
-                grid-template-columns: 1fr;
-            }
+        .cart-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 1001;
         }
 
-        /* [Le reste des styles CSS...] */
+        .cart-items {
+            margin-top: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Modifications footer */
+        footer {
+            background: #1e40af;
+            color: white;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        .legal-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        /* Autres ajustements */
+        .pricing-card button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        .pricing-card button:hover {
+            background: #e67e22;
+        }
     </style>
 </head>
-
 <body>
+    <!-- Panier -->
+    <div class="cart-icon" onclick="toggleCart()">
+        <i class="fas fa-shopping-cart"></i> (<span id="cart-count">0</span>)
+    </div>
 
-     <!-- WhatsApp Float -->
+    <div class="cart-panel">
+        <h3>Votre Panier</h3>
+        <div class="cart-items"></div>
+        <div id="cart-total" style="font-weight: bold; margin-top: 20px;"></div>
+        <div id="paypal-button-container" class="paypal-button-container"></div>
+        <button onclick="toggleCart()" style="margin-top: 20px;">Fermer</button>
+    </div>
+
+    <!-- ... (le reste du code existant jusqu'à la grille tarifaire) ... -->
+    
+<body>
+    <!-- WhatsApp Float -->
     <a href="https://wa.me/+972549431930" class="whatsapp-float" target="_blank">
         <i class="fab fa-whatsapp" style="font-size: 2rem;"></i>
     </a>
@@ -239,7 +278,7 @@
         </div>
     </section>
 
-    <!-- Grille tarifaire -->
+    <!-- Grille tarifaire modifiée -->
     <section id="pricing" class="pricing">
         <div class="pricing-grid">
             <div class="pricing-card">
@@ -251,7 +290,7 @@
                     <li>✓ Optimisation SEO de base</li>
                     <li>✓ Statistiques mensuelles</li>
                 </ul>
-                <div id="paypal-button-container-VITRINE" class="paypal-button-container"></div>
+                <button onclick="addToCart('Site Vitrine', 2000)">Je choisis cette offre</button>
             </div>
 
             <div class="pricing-card">
@@ -264,7 +303,7 @@
                     <li>✓ Gestion de stocks</li>
                     <li>✓ Formation vidéo illimitée</li>
                 </ul>
-                <div id="paypal-button-container-BOUTIQUE" class="paypal-button-container"></div>
+                <button onclick="addToCart('Boutique en ligne', 4000)">Je choisis cette offre</button>
             </div>
 
             <div class="pricing-card">
@@ -276,144 +315,101 @@
                     <li>✓ Marketing automatisé</li>
                     <li>✓ Assistance 24/7</li>
                 </ul>
-                <div id="paypal-button-container-PREMIUM" class="paypal-button-container"></div>
+                <button onclick="addToCart('Solution Premium', 8000)">Je choisis cette offre</button>
             </div>
         </div>
     </section>
 
-    <!-- FAQ -->
-    <section class="faq scroll-animation">
-        <h2>Questions Fréquentes</h2>
-        <div class="faq-item">
-            <h3><i class="fas fa-question-circle"></i> Comment vérifier la disponibilité de mon nom de domaine ?</h3>
-            <p>Nous nous chargeons de toutes les vérifications et réservations lors de notre premier contact !</p>
+    <!-- Nouveau footer avec CGV -->
+    <footer>
+        <div class="legal-links">
+            <a href="#conditions-generales">Conditions Générales de Vente</a>
+            <a href="#confidentialite">Politique de Confidentialité</a>
         </div>
-        <div class="faq-item">
-            <h3><i class="fas fa-credit-card"></i> Puis-je payer en plusieurs fois ?</h3>
-            <p>Absolument ! Solution flexible : 50% à la commande, 50% à la livraison</p>
+        
+        <div id="conditions-generales" style="margin-top: 2rem;">
+            <h4>Conditions Générales de Vente (Israël)</h4>
+            <p>1. Tous les contrats sont régis par la loi israélienne. En cas de litige, les tribunaux compétents seront ceux du district de Tel Aviv.</p>
+            <p>2. Les prix sont en shekels israéliens (₪) TTC. Paiement exigible à la commande.</p>
+            <p>3. Tout projet annulé après validation entraînera des frais de 30% du montant total.</p>
+            <p>4. Les réclamations doivent être formulées par écrit dans les 7 jours suivant la livraison.</p>
         </div>
-    </section>
+    </footer>
 
-    <!-- Formulaire de contact -->
-    <section class="contact scroll-animation">
-        <h2 class="section-title">Contact Express</h2>
-        <form class="contact-form" action="https://formspree.io/f/mzzdrdol" method="POST">
-            <div class="form-group">
-                <input type="text" name="name" placeholder="Votre nom" required>
-            </div>
-            <div class="form-group">
-                <input type="email" name="email" placeholder="Votre email" required>
-            </div>
-            <div class="form-group">
-                <textarea name="message" rows="5" placeholder="Décrivez-nous vos ambitions digitales..." required></textarea>
-            </div>
-            <button type="submit" class="btn">Obtenir mon devis gratuit</button>
-            <input type="hidden" name="_next" value="https://yaacovqa.github.io/WebsiteProvider/index.html">
-        </form>
-    </section>
-
-    <!-- Bannière de garantie -->
+    <!-- Bannière de garantie modifiée -->
     <div class="guarantee-banner">
         <div class="guarantee-content">
             <i class="fas fa-certificate"></i>
-            <span>Garantie Satisfait ou Remboursé - 15 jours pour valider votre solution</span>
+            <span>Engagement Qualité - Validation technique sous 15 jours avec rapport détaillé</span>
         </div>
     </div>
 
-    
-    <!-- Header -->
-    <header>
-        <nav>
-            <div class="logo">Yaacov Web Solutions</div>
-            <div class="lang-switcher">
-                <button onclick="changeLanguage('fr')">FR</button>
-                <button onclick="changeLanguage('en')">EN</button>
-                <button onclick="changeLanguage('he')">HE</button>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Cart Components -->
-    <div class="cart-overlay"></div>
-    <div class="cart-modal">
-        <h3>Votre Panier</h3>
-        <div class="cart-items"></div>
-        <div class="cart-total">Total: <span>0</span> €</div>
-        <div id="paypal-button-container"></div>
-        <button onclick="closeCart()" class="btn">Continuer mes achats</button>
-    </div>
-
-    <!-- [Le reste du HTML...] -->
-
+    <!-- Scripts modifiés -->
     <script>
-        // Cart management
-        let cart = [];
-        
-        function updateCartDisplay() {
+        // Gestion du panier
+        let panier = [];
+        const updateCartDisplay = () => {
+            document.getElementById('cart-count').textContent = panier.length;
             const cartItems = document.querySelector('.cart-items');
-            const totalElement = document.querySelector('.cart-total span');
+            const cartTotal = document.getElementById('cart-total');
             
-            cartItems.innerHTML = cart.map((item, index) => `
+            cartItems.innerHTML = panier.map(item => `
                 <div class="cart-item">
-                    <span>${item.name}</span>
-                    <span>${item.price.toFixed(2)} €</span>
-                    <span class="cart-item-remove" onclick="removeFromCart(${index})">×</span>
+                    <div>${item.name}</div>
+                    <div>${item.price} ₪</div>
                 </div>
             `).join('');
             
-            const total = cart.reduce((sum, item) => sum + item.price, 0);
-            totalElement.textContent = total.toFixed(2);
-        }
+            const total = panier.reduce((sum, item) => sum + item.price, 0);
+            cartTotal.textContent = `Total: ${total} ₪`;
+        };
 
-        function addToCart(name, price) {
-            cart.push({ name, price });
+        window.addToCart = (name, price) => {
+            panier.push({ name, price });
             updateCartDisplay();
-            document.querySelector('.cart-modal').style.display = 'block';
-            document.querySelector('.cart-overlay').style.display = 'block';
-        }
+            toggleCart();
+        };
 
-        function removeFromCart(index) {
-            if (confirm('Voulez-vous supprimer cet article ?')) {
-                cart.splice(index, 1);
-                updateCartDisplay();
-                if (cart.length === 0) {
-                    closeCart();
-                }
-            }
-        }
+        window.toggleCart = () => {
+            document.querySelector('.cart-panel').classList.toggle('active');
+        };
 
-        function closeCart() {
-            document.querySelector('.cart-modal').style.display = 'none';
-            document.querySelector('.cart-overlay').style.display = 'none';
-        }
-
-        // PayPal Integration
+        // Configuration PayPal
         paypal.Buttons({
-            createOrder: function(data, actions) {
+            style: {
+                shape: 'rect',
+                color: 'gold',
+                layout: 'vertical'
+            },
+            createOrder: (data, actions) => {
+                const total = panier.reduce((sum, item) => sum + item.price, 0);
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
-                            value: cart.reduce((sum, item) => sum + item.price, 0).toFixed(2),
+                            value: total,
                             currency_code: 'EUR'
                         }
                     }]
                 });
             },
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(details) {
-                    alert('Transaction complétée par ' + details.payer.name.given_name);
-                    cart = [];
+            onApprove: (data, actions) => {
+                return actions.order.capture().then(details => {
+                    alert('Paiement réussi ! Merci pour votre confiance.');
+                    panier = [];
                     updateCartDisplay();
-                    closeCart();
+                    toggleCart();
                 });
-            },
-            onError: function(err) {
-                console.error('Erreur de paiement:', err);
-                alert('Une erreur est survenue lors du paiement. Veuillez réessayer.');
             }
         }).render('#paypal-button-container');
 
-        // Animation management
+          // Initialisation après chargement du SDK
+        if(window.paypal) {
+            initPayPalButtons();
+        } else {
+            document.querySelector('#paypal-button-container-VITRINE').onload = initPayPalButtons;
+        }
+
+          // Animations au défilement
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if(entry.isIntersecting) {
@@ -426,13 +422,12 @@
             observer.observe(el);
         });
 
-        // Language management
+        // Changement de langue
         function changeLanguage(lang) {
-            // Implementation to be completed
+            // Implémentation multilingue à compléter
         }
 
-        // Close cart when clicking overlay
-        document.querySelector('.cart-overlay').addEventListener('click', closeCart);
+        // ... (le reste du script existant) ...
     </script>
 </body>
 </html>
