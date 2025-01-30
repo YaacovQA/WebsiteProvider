@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yaacov WebPro - Création de Sites Professionnels Haut de Gamme</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://www.paypal.com/sdk/js?client-id=SB_CLIENT_ID&currency=ILS"></script>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://www.paypal.com; frame-src 'self' https://www.paypal.com;">
+
+    <style>
+        /* Styles de base */
+        :root {
+            --primary: #2563eb;
+            --secondary: #1e40af;
+            --accent: #f59e0b;
+            --light: #f8fafc;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: #1e293b;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        /* Section héro */
+        .hero {
+            padding: 8rem 2rem 4rem;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('hero-bg.jpg') center/cover;
+            color: white;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Grille tarifaire */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 2rem auto;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+            position: relative;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Panier */
+        .cart-panel {
+            position: fixed;
+            top: 5rem;
+            right: 1rem;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            border-radius: 12px;
+            width: min(90vw, 400px);
+            z-index: 2000;
+            display: none;
+        }
+
+        /* Politiques */
+        .policies-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            width: min(90vw, 800px);
+            max-height: 80vh;
+            overflow-y: auto;
+            z-index: 3000;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 6rem 1rem 2rem;
+            }
+            
+            .pricing-card {
+                padding: 1.5rem;
+            }
+        }
+
+        [dir="rtl"] {
+            direction: rtl;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo" data-translate="logo">Yaacov WebPro</div>
+            <div class="lang-switcher">
+                <button onclick="changeLanguage('fr')">FR</button>
+                <button onclick="changeLanguage('en')">EN</button>
+                <button onclick="changeLanguage('he')">HE</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Panier -->
+    <div class="cart-icon" onclick="toggleCart()">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cart-count">0</span>
+    </div>
+
+    <div class="cart-panel">
+        <h3 data-translate="cartTitle">Votre Projet</h3>
+        <div id="cart-items"></div>
+        <p data-translate="cartTotal">Investissement Total: <span id="cart-total">0</span> ₪</p>
+        <div id="paypal-button-container"></div>
+    </div>
+
+    <!-- Contenu principal -->
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1 data-translate="heroTitle">Votre Excellence Numérique, Notre Savoir-Faire</h1>
+                <p class="lead" data-translate="heroText">Solutions web sur mesure pour entrepreneurs exigeants</p>
+                <a href="#pricing" class="cta-btn" data-translate="viewOffers">Étudier mon projet →</a>
+            </div>
+        </section>
+
+        <!-- Section garanties -->
+        <section class="guarantees">
+            <div class="guarantees-grid">
+                <div class="guarantee-card">
+                    <i class="fas fa-file-contract"></i>
+                    <h3 data-translate="contractTitle">Cadrage Professionnel</h3>
+                    <p data-translate="contractText">Cahier des charges détaillé validé ensemble</p>
+                </div>
+                <!-- Ajouter autres garanties -->
+            </div>
+        </section>
+
+        <!-- Grille tarifaire -->
+        <section id="pricing">
+            <div class="pricing-grid">
+                <!-- Carte Site Vitrine -->
+                <div class="pricing-card">
+                    <h3 data-translate="basicPlan">Site Vitrine Élégant</h3>
+                    <div class="price">4,900 ₪</div>
+                    <ul>
+                        <li data-translate="feat1">✓ Design exclusif</li>
+                        <li data-translate="feat2">✓ Optimisation SEO</li>
+                        <li data-translate="feat3">✓ 2 révisions incluses</li>
+                    </ul>
+                    <button class="cta-btn" data-translate="choose">Commencer</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer avec politiques -->
+        <footer class="policies-footer">
+            <div class="policies-links">
+                <a onclick="showPolicy('terms')" data-translate="terms">Engagements</a>
+                <a onclick="showPolicy("privacy")" data-translate="privacy">Confidentialité</a>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        // Gestion multilingue
+        const translations = {
+            fr: {
+                // Textes principaux
+                heroTitle: "Votre Excellence Numérique, Notre Savoir-Faire",
+                choose: "Commencer",
+                
+                // Politiques
+                terms: "Nos Engagements",
+                termsContent: `
+                    <h2>Processus Professionnel</h2>
+                    <ul>
+                        <li>Validation écrite à chaque étape</li>
+                        <li>2 révisions incluses dans le forfait</li>
+                        <li>Suivi projet via espace client</li>
+                    </ul>
+                `
+            },
+            en: {},
+            he: {}
+        };
+
+        // Système de panier
+        let cart = [];
+        const MAX_REVISIONS = 2;
+
+        function addToCart(plan) {
+            if(cart.length >= 1) {
+                alert("Vous ne pouvez commander qu'un projet à la fois");
+                return;
+            }
+            cart.push(plan);
+            updateCartDisplay();
+        }
+
+        // PayPal
+        function createPayPalOrder() {
+            return {
+                purchase_units: [{
+                    amount: {
+                        value: cart.reduce((sum, item) => sum + item.price, 0),
+                        breakdown: {
+                            item_total: {
+                                value: cart.reduce((sum, item) => sum + item.price, 0),
+                                currency_code: "ILS"
+                            }
+                        }
+                    }
+                }]
+            };
+        }
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            initTranslations();
+            initCartButtons();
+        });
+
+        function initCartButtons() {
+            document.querySelectorAll('.pricing-card .cta-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const plan = {
+                        name: btn.closest('.pricing-card').querySelector('h3').textContent,
+                        price: parseFloat(btn.closest('.pricing-card').querySelector('.price').textContent.replace(/[^0-9.]/g, ''))
+                    };
+                    addToCart(plan);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
