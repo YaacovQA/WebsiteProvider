@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <head>
-    <!-- Meta tags inchangés -->
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=EUR"></script>
     <style>
-        /* Ajouts CSS */
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+        }
+
         .cart-modal {
             position: fixed;
             top: 50%;
@@ -16,6 +24,7 @@
             z-index: 2000;
             display: none;
             max-width: 90%;
+            width: 500px;
         }
 
         .cart-overlay {
@@ -32,7 +41,15 @@
         .cart-item {
             display: flex;
             justify-content: space-between;
-            margin: 1rem 0;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item-remove {
+            color: red;
+            cursor: pointer;
+            padding: 0.5rem;
         }
 
         .cart-total {
@@ -40,7 +57,110 @@
             border-top: 2px solid var(--primary);
             padding-top: 1rem;
             margin-top: 1rem;
+            text-align: right;
         }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+        }
+
+        #paypal-button-container {
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="cart-overlay"></div>
+    <div class="cart-modal">
+        <h3>Votre Panier</h3>
+        <div class="cart-items"></div>
+        <div class="cart-total">Total: <span>0</span> €</div>
+        <div id="paypal-button-container"></div>
+        <button onclick="closeCart()" class="btn">Continuer mes achats</button>
+    </div>
+
+    <script>
+        let cart = [];
+        
+        function updateCartDisplay() {
+            const cartItems = document.querySelector('.cart-items');
+            const totalElement = document.querySelector('.cart-total span');
+            
+            cartItems.innerHTML = cart.map((item, index) => `
+                <div class="cart-item">
+                    <span>${item.name}</span>
+                    <span>${item.price.toFixed(2)} €</span>
+                    <span class="cart-item-remove" onclick="removeFromCart(${index})">×</span>
+                </div>
+            `).join('');
+            
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            totalElement.textContent = total.toFixed(2);
+        }
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCartDisplay();
+            document.querySelector('.cart-modal').style.display = 'block';
+            document.querySelector('.cart-overlay').style.display = 'block';
+        }
+
+        function removeFromCart(index) {
+            if (confirm('Voulez-vous supprimer cet article ?')) {
+                cart.splice(index, 1);
+                updateCartDisplay();
+                if (cart.length === 0) {
+                    closeCart();
+                }
+            }
+        }
+
+        function closeCart() {
+            document.querySelector('.cart-modal').style.display = 'none';
+            document.querySelector('.cart-overlay').style.display = 'none';
+        }
+
+        // PayPal Integration
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: cart.reduce((sum, item) => sum + item.price, 0).toFixed(2),
+                            currency_code: 'EUR'
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    alert('Transaction complétée par ' + details.payer.name.given_name);
+                    cart = [];
+                    updateCartDisplay();
+                    closeCart();
+                });
+            },
+            onError: function(err) {
+                console.error('Erreur de paiement:', err);
+                alert('Une erreur est survenue lors du paiement. Veuillez réessayer.');
+            }
+        }).render('#paypal-button-container');
+
+        // Fermer le panier en cliquant sur l'overlay
+        document.querySelector('.cart-overlay').addEventListener('click', closeCart);
+    </script>
+</body>
+</html>
 
         footer {
             background: var(--secondary);
