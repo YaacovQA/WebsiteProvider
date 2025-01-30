@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yaacov WebPro Solutions - Leadership Digital Garanti</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://www.paypal.com/sdk/js?client-id=VOTRE_ID_CLIENT_PAYPAL&currency=EUR"></script>
+    
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a365d;
+            --secondary: #2c5282;
+            --accent: #d69e2e;
+            --light: #f7fafc;
+            --dark: #2d3748;
+            --radius: 12px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            line-height: 1.7;
+            color: var(--dark);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--light);
+        }
+
+        /* Header modernisé */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: var(--shadow);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: white;
+        }
+
+        .lang-switcher button {
+            background: none;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            margin-left: 0.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .lang-switcher button:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Hero section redessinée */
+        .hero {
+            padding: 12rem 2rem 6rem;
+            background: linear-gradient(rgba(26, 54, 93, 0.9), rgba(44, 82, 130, 0.9)),
+                        url('https://images.unsplash.com/photo-1496171367470-9ed9a91ea931') center/cover;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            color: white;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            margin: 2rem 0;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        .trust-badge {
+            margin-top: 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Sections améliorées */
+        section {
+            padding: 6rem 2rem;
+            scroll-margin-top: 100px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        /* Grille de fonctionnalités */
+        .features-grid {
+            display: grid;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        /* Témoignages professionnels */
+        .testimonial-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            border-left: 4px solid var(--accent);
+            position: relative;
+        }
+
+        .testimonial-card p::before {
+            content: "“";
+            font-size: 3rem;
+            color: var(--accent);
+            position: absolute;
+            left: 1rem;
+            top: -0.5rem;
+        }
+
+        .client-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .client-photo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Grille tarifaire améliorée */
+        .pricing-grid {
+            display: grid;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .pricing-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            border: 1px solid #e2e8f0;
+            position: relative;
+            text-align: center;
+        }
+
+        .pricing-card .badge {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: var(--accent);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 1.5rem 0;
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .pricing-card li {
+            margin: 0.75rem 0;
+            padding: 0.5rem;
+            background: var(--light);
+            border-radius: 6px;
+        }
+
+        .pricing-card button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.3s ease;
+            font-weight: 600;
+        }
+
+        .pricing-card button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Panier amélioré */
+        .cart-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1001;
+            box-shadow: var(--shadow);
+        }
+
+        .cart-panel {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100%;
+            background: white;
+            box-shadow: var(--shadow);
+            transition: 0.3s;
+            z-index: 2000;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .cart-panel.active {
+            right: 0;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Footer modernisé */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 4rem 2rem;
+            margin-top: 6rem;
+        }
+
+        .legal-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .legal-links a {
+            color: white;
+            opacity: 0.8;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .legal-links a:hover {
+            opacity: 1;
+        }
+
+        /* WhatsApp Float */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #25d366;
+            color: white;
+            padding: 1rem;
+            border-radius: 50%;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        /* Animations */
+        .scroll-animation {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .scroll-animation.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cart-notification {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .cart-notification.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Panier -->
+    <div class="cart-icon" onclick="toggleCart()">
+        <i class="fas fa-shopping-cart"></i> (<span id="cart-count">0</span>)
+    </div>
+
+    <div class="cart-panel">
+        <h3>Votre Panier</h3>
+        <div class="cart-items"></div>
+        <div id="cart-total" style="font-weight: bold; margin: 2rem 0;"></div>
+        <div id="paypal-button-container"></div>
+        <button onclick="toggleCart()" style="margin-top: 2rem; padding: 0.8rem 1.5rem;">Fermer</button>
+    </div>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/+972549431930" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">Yaacov Web Solutions</div>
+            <div class="lang-switcher">
+                <button onclick="changeLanguage('fr')">FR</button>
+                <button onclick="changeLanguage('en')">EN</button>
+                <button onclick="changeLanguage('he')">HE</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Section héro -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Votre absence numérique vous coûte des clients chaque jour</h1>
+            <p class="hero-subtitle">87% des consommateurs vérifient un site web avant d'acheter - Ne soyez plus invisible !</p>
+            <div class="hero-cta">
+                <a href="#pricing" class="btn" style="background: var(--accent); padding: 1rem 2rem; border-radius: 50px; text-decoration: none; display: inline-block; margin: 1rem;">Démarrer mon projet dès aujourd'hui</a>
+                <div class="trust-badge">
+                    <i class="fas fa-shield-alt"></i> <span>+152 projets livrés avec succès</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pourquoi nous choisir -->
+    <section class="why-us scroll-animation">
+        <h2 class="section-title">Notre valeur ajoutée</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-chart-line feature-icon"></i>
+                <h3>Performance mesurable</h3>
+                <p>Suivi analytique en temps réel avec tableau de bord personnalisé</p>
+                <ul class="feature-list">
+                    <li>→ Audit SEO gratuit</li>
+                    <li>→ Rapports mensuels détaillés</li>
+                    <li>→ Optimisation continue</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-lock feature-icon"></i>
+                <h3>Sécurité garantie</h3>
+                <p>Protection maximale des données et transactions</p>
+                <ul class="feature-list">
+                    <li>→ Certificat SSL premium</li>
+                    <li>→ Sauvegardes quotidiennes</li>
+                    <li>→ Surveillance 24h/24</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-clock feature-icon"></i>
+                <h3>Respect des délais</h3>
+                <p>Livraison rapide sans compromis qualité</p>
+                <ul class="feature-list">
+                    <li>→ Prototypage rapide</li>
+                    <li>→ Méthode Agile</li>
+                    <li>→ Suivi en temps réel</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Témoignages -->
+    <section class="testimonials scroll-animation">
+        <h2 class="section-title">Ils nous font confiance</h2>
+        <div class="features-grid">
+            <div class="testimonial-card">
+                <div class="client-info">
+                    <img src="https://i.pravatar.cc/60" alt="Marc Benillouche" class="client-photo">
+                    <div class="client-details">
+                        <h4>Marc Benillouche</h4>
+                        <p>CEO, Luxe Auto Import</p>
+                    </div>
+                </div>
+                <p>"Notre site a généré 58 000€ de CA supplémentaire en 6 mois. Le meilleur investissement marketing de l'année !"</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="client-info">
+                    <img src="https://i.pravatar.cc/60?img=2" alt="Sarah Cohen" class="client-photo">
+                    <div class="client-details">
+                        <h4>Sarah Cohen</h4>
+                        <p>Directrice, Maison d'Hôtes Élégance</p>
+                    </div>
+                </div>
+                <p>"Une refonte complète en 10 jours seulement. Notre taux de conversion a doublé grâce à leur expertise UX."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grille tarifaire -->
+    <section id="pricing" class="pricing scroll-animation">
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Site Vitrine</h3>
+                <div class="price">2000-3000 ₪</div>
+                <ul>
+                    <li>✓ Nom de domaine offert 1 an</li>
+                    <li>✓ Design premium responsive</li>
+                    <li>✓ Optimisation SEO de base</li>
+                    <li>✓ Statistiques mensuelles</li>
+                </ul>
+                <button onclick="addToCart('Site Vitrine', 2000)">Je choisis cette offre</button>
+            </div>
+
+            <div class="pricing-card">
+                <div class="badge">Populaire</div>
+                <h3>Boutique en ligne</h3>
+                <div class="price">4000-6000 ₪</div>
+                <ul>
+                    <li>✓ Jusqu'à 50 produits</li>
+                    <li>✓ Paiement sécurisé</li>
+                    <li>✓ Gestion de stocks</li>
+                    <li>✓ Formation vidéo</li>
+                </ul>
+                <button onclick="addToCart('Boutique en ligne', 4000)">Je choisis cette offre</button>
+            </div>
+
+            <div class="pricing-card">
+                <h3>Solution Premium</h3>
+                <div class="price">8000 ₪+</div>
+                <ul>
+                    <li>✓ Site 100% sur mesure</li>
+                    <li>✓ Intégration CRM</li>
+                    <li>✓ Marketing automatisé</li>
+                           <li>✓ Assistance 24/7</li>
+                </ul>
+                <div id="paypal-button-container-PREMIUM" class="paypal-button-container"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq scroll-animation">
+        <h2>Questions Fréquentes</h2>
+        <div class="faq-item">
+            <h3><i class="fas fa-question-circle"></i> Comment vérifier la disponibilité de mon nom de domaine ?</h3>
+            <p>Nous nous chargeons de toutes les vérifications et réservations lors de notre premier contact !</p>
+        </div>
+        <div class="faq-item">
+            <h3><i class="fas fa-credit-card"></i> Puis-je payer en plusieurs fois ?</h3>
+            <p>Absolument ! Solution flexible : 50% à la commande, 50% à la livraison</p>
+        </div>
+    </section>
+
+    <!-- Formulaire de contact -->
+    <section class="contact scroll-animation">
+        <h2 class="section-title">Contact Express</h2>
+        <form class="contact-form" action="https://formspree.io/f/mzzdrdol" method="POST">
+            <div class="form-group">
+                <input type="text" name="name" placeholder="Votre nom" required>
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" placeholder="Votre email" required>
+            </div>
+            <div class="form-group">
+                <textarea name="message" rows="5" placeholder="Décrivez-nous vos ambitions digitales..." required></textarea>
+            </div>
+            <button type="submit" class="btn">Obtenir mon devis gratuit</button>
+            <input type="hidden" name="_next" value="https://yaacovqa.github.io/WebsiteProvider/index.html">
+        </form>
+    </section>
+
+    <!-- Bannière de garantie -->
+    <div class="guarantee-banner">
+        <div class="guarantee-content">
+            <i class="fas fa-certificate"></i>
+            <span>Garantie Satisfait ou Remboursé - 15 jours pour valider votre solution</span>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Configuration PayPal
+        function initPayPalButtons() {
+            paypal.Buttons({
+                style: {
+                    shape: 'rect',
+                    color: 'blue',
+                    layout: 'vertical'
+                },
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: '3000' // À adapter selon le forfait
+                            }
+                        }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        alert('Paiement réussi ! Merci ' + details.payer.name.given_name + ', nous vous contactons sous 24h.');
+                    });
+                }
+            }).render('#paypal-button-container-VITRINE');
+
+            // Répéter pour les autres boutons avec des montants différents
+        }
+
+        // Initialisation après chargement du SDK
+        if(window.paypal) {
+            initPayPalButtons();
+        } else {
+            document.querySelector('#paypal-button-container-VITRINE').onload = initPayPalButtons;
+        }
+
+        // Gestion du panier
+        let panier = [];
+        document.querySelectorAll('.pricing-card button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Logique d'ajout au panier
+            });
+        });
+
+        // Animations au défilement
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.scroll-animation').forEach((el) => {
+            observer.observe(el);
+        });
+
+        // Changement de langue
+        function changeLanguage(lang) {
+            // Implémentation multilingue à compléter
+        }
+    </script>
+</body>
+</html>
