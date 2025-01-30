@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <!-- Meta tags inchangés -->
+    <style>
+        /* Ajouts CSS */
+        .cart-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            z-index: 2000;
+            display: none;
+            max-width: 90%;
+        }
+
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1999;
+            display: none;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 1rem 0;
+        }
+
+        .cart-total {
+            font-weight: bold;
+            border-top: 2px solid var(--primary);
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+
+        footer {
+            background: var(--secondary);
+            color: white;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            margin: 0.5rem 0;
+        }
+
+        /* Modification de la bannière de garantie */
+        .guarantee-banner {
+            background: var(--secondary);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Ajout du panier -->
+    <div class="cart-overlay"></div>
+    <div class="cart-modal">
+        <h3>Votre Sélection</h3>
+        <div class="cart-items"></div>
+        <div class="cart-total">Total : <span>0</span> ₪</div>
+        <div id="paypal-button-container" class="paypal-button-container"></div>
+        <button onclick="closeCart()" class="btn">Continuer mes achats</button>
+    </div>
+
+    <!-- Modification des cartes tarifaires -->
+    <div class="pricing-card">
+        <!-- ... -->
+        <button class="btn add-to-cart" data-plan="Vitrine" data-price="3000">Ajouter au panier</button>
+    </div>
+
+    <!-- Nouveau footer -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <h4>Légal</h4>
+                <div class="footer-links">
+                    <a href="#conditions-generales">Conditions générales</a>
+                    <a href="#confidentialite">Confidentialité</a>
+                    <a href="#mentions-legales">Mentions légales</a>
+                </div>
+            </div>
+            <div>
+                <h4>Support</h4>
+                <!-- Liens de support -->
+            </div>
+        </div>
+        <p style="text-align:center;margin-top:2rem">&copy; 2024 Yaacov Web Solutions - Tous droits réservés</p>
+    </footer>
+
+    <script>
+        // Gestion du panier
+        let cart = [];
+        const updateCartDisplay = () => {
+            document.querySelector('.cart-items').innerHTML = cart
+                .map(item => `<div class="cart-item">
+                    <span>${item.name}</span>
+                    <span>${item.price} ₪</span>
+                </div>`)
+                .join('');
+            
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            document.querySelector('.cart-total span').textContent = total;
+        };
+
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', () => {
+                cart.push({
+                    name: button.dataset.plan,
+                    price: Number(button.dataset.price)
+                });
+                updateCartDisplay();
+                document.querySelector('.cart-modal, .cart-overlay').style.display = 'block';
+            });
+        });
+
+        // PayPal configuration modifiée
+        function initPayPal() {
+            paypal.Buttons({
+                style: {
+                    shape: 'rect',
+                    color: 'gold',
+                    layout: 'vertical'
+                },
+                createOrder: (data, actions) => {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: cart.reduce((sum, item) => sum + item.price, 0),
+                                currency_code: 'EUR'
+                            }
+                        }]
+                    });
+                },
+                onApprove: (data, actions) => {
+                    return actions.order.capture().then(details => {
+                        alert('Paiement confirmé ! Merci ' + details.payer.name.given_name);
+                        cart = [];
+                        closeCart();
+                    });
+                }
+            }).render('#paypal-button-container');
+        }
+
+        // Gestion de la modale
+        const closeCart = () => {
+            document.querySelector('.cart-modal, .cart-overlay').style.display = 'none';
+        };
+
+        // Modification de la garantie
+        document.querySelector('.guarantee-banner').innerHTML = `
+            <div class="guarantee-content">
+                <i class="fas fa-certificate"></i>
+                <span>15 jours d'évaluation offerts - Modification gratuite ou remboursement sous conditions</span>
+            </div>
+        `;
+    </script>
+</body>
+</html>
