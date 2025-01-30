@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yaacov WebPro - Solutions Web Hautes Performances</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://www.paypal.com/sdk/js?client-id=VOTRE_ID_CLIENT_PAYPAL&currency=EUR" defer></script>
+    
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #4f46e5;
+            --accent: #f59e0b;
+            --light: #f8fafc;
+            --dark: #0f172a;
+            --glass: rgba(255, 255, 255, 0.1);
+            --ease: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--dark);
+            background: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Header dynamique */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        nav {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: opacity 0.3s var(--ease);
+        }
+
+        .cart-btn {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s var(--ease);
+        }
+
+        .cart-btn:hover {
+            background: var(--secondary);
+            transform: scale(1.05);
+        }
+
+        /* Hero section immersive */
+        .hero {
+            padding: 12rem 1rem 6rem;
+            text-align: center;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            color: white;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Sections modulaires */
+        section {
+            padding: 6rem 1rem;
+            scroll-margin-top: 100px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 4rem;
+            position: relative;
+            color: var(--dark);
+        }
+
+        /* Grid system moderne */
+        .grid {
+            display: grid;
+            gap: 2rem;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .card {
+            background: var(--light);
+            border-radius: 20px;
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.4s var(--ease);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Panier */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100%;
+            background: white;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            transition: right 0.3s var(--ease);
+            z-index: 1001;
+        }
+
+        .cart-modal.active {
+            right: 0;
+        }
+
+        .cart-items {
+            margin: 2rem 0;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Éléments interactifs */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 1rem 2.5rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s var(--ease);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 8rem 1rem 4rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .cart-modal {
+                width: 100%;
+                right: -100%;
+            }
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .scroll-animation {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s var(--ease);
+        }
+
+        .scroll-animation.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #25D366;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+            transition: all 0.3s var(--ease);
+            z-index: 999;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            gap: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+    </style>
+</head>
+<body>
+    <div class="cart-modal">
+        <h3>Votre Panier</h3>
+        <div class="cart-items"></div>
+        <div class="cart-total"></div>
+        <button class="btn" onclick="handleCheckout()">Finaliser la commande</button>
+    </div>
+
+    <a href="https://wa.me/+972549431930" class="whatsapp-float" target="_blank" aria-label="Contact WhatsApp">
+        <i class="fab fa-whatsapp" style="color: white; font-size: 1.75rem;"></i>
+    </a>
+
+    <header>
+        <nav>
+            <a href="#" class="logo">Yaacov WebPro</a>
+            <button class="cart-btn" onclick="toggleCart()">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </button>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <video autoplay muted loop class="hero-video">
+            <source src="votre-video-background.mp4" type="video/mp4">
+        </video>
+        <div class="hero-content">
+            <h1 class="scroll-animation">Transformez Votre Présence Numérique</h1>
+            <p class="hero-subtitle scroll-animation">Des solutions web sur mesure pour conquérir votre marché</p>
+            <div class="scroll-animation">
+                <a href="#pricing" class="btn">Explorer nos solutions</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="why-us">
+        <h2 class="section-title scroll-animation">Notre Expertise</h2>
+        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+            <div class="card scroll-animation">
+                <i class="fas fa-bolt" style="font-size: 2rem; color: var(--accent); margin-bottom: 1rem;"></i>
+                <h3>Performance Extrême</h3>
+                <p>Sites optimisés avec chargement en moins de 0.8s</p>
+            </div>
+            <div class="card scroll-animation">
+                <i class="fas fa-lock" style="font-size: 2rem; color: var(--accent); margin-bottom: 1rem;"></i>
+                <h3>Sécurité Maximale</h3>
+                <p>Protection avancée et audits réguliers</p>
+            </div>
+            <div class="card scroll-animation">
+                <i class="fas fa-chart-pie" style="font-size: 2rem; color: var(--accent); margin-bottom: 1rem;"></i>
+                <h3>Analyse en Temps Réel</h3>
+                <p>Tableaux de bord personnalisés intégrés</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing">
+        <h2 class="section-title scroll-animation">Nos Offres</h2>
+        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+            <div class="card scroll-animation">
+                <h3>Site Vitrine Pro</h3>
+                <div class="price">2500-4000 ₪</div>
+                <ul class="features">
+                    <li>✓ Design Premium Responsive</li>
+                    <li>✓ SEO Avancé</li>
+                    <li>✓ Hébergement SSL</li>
+                </ul>
+                <button class="btn" onclick="addToCart('Site Vitrine', 2500)">Ajouter au panier</button>
+            </div>
+            <div class="card scroll-animation">
+                <h3>E-commerce Elite</h3>
+                <div class="price">5000-8000 ₪</div>
+                <ul class="features">
+                    <li>✓ Jusqu'à 100 produits</li>
+                    <li>✓ Paiements Sécurisés</li>
+                    <li>✓ Analytics Premium</li>
+                </ul>
+                <button class="btn" onclick="addToCart('E-commerce', 5000)">Ajouter au panier</button>
+            </div>
+            <div class="card scroll-animation">
+                <h3>Solution Sur Mesure</h3>
+                <div class="price">9000 ₪+</div>
+                <ul class="features">
+                    <li>✓ Développement Personnalisé</li>
+                    <li>✓ Intégration API</li>
+                    <li>✓ Support Prioritaire</li>
+                </ul>
+                <button class="btn" onclick="addToCart('Sur Mesure', 9000)">Ajouter au panier</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div>
+                <h4>Contact Expert</h4>
+                <p>contact@yaacovweb.com<br>+972 54 943 1930</p>
+            </div>
+            <div>
+                <h4>Solutions</h4>
+                <p>Développement Web<br>Marketing Digital<br>Hébergement Sécurisé</p>
+            </div>
+            <div>
+                <h4>Réseaux Professionnels</h4>
+                <p>LinkedIn<br>GitHub<br>Behance</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        function updateCartDisplay() {
+            document.querySelector('.cart-count').textContent = cart.length;
+            const itemsContainer = document.querySelector('.cart-items');
+            const totalContainer = document.querySelector('.cart-total');
+            
+            itemsContainer.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <span>${item.name}</span>
+                    <span>${item.price} ₪</span>
+                </div>
+            `).join('');
+            
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            totalContainer.innerHTML = `<h4>Total: ${total} ₪</h4>`;
+        }
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+            showCart();
+        }
+
+        function toggleCart() {
+            document.querySelector('.cart-modal').classList.toggle('active');
+        }
+
+        function showCart() {
+            document.querySelector('.cart-modal').classList.add('active');
+        }
+
+        async function handleCheckout() {
+            try {
+                const response = await fetch('/create-order', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(cart)
+                });
+                
+                const order = await response.json();
+                window.location.href = order.approval_url;
+            } catch (error) {
+                console.error('Checkout error:', error);
+            }
+        }
+
+        // Animation Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                entry.target.classList.toggle('visible', entry.isIntersecting);
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.scroll-animation').forEach(el => observer.observe(el));
+
+        // Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js');
+            });
+        }
+    </script>
+</body>
+</html>
