@@ -486,6 +486,219 @@ a.btn:hover {
     </style>
 </head>
 <body>
+
+      <!-- WhatsApp Float -->
+    <a href="https://wa.me/+972549431930" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp" style="font-size: 2rem;"></i>
+    </a>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">Yaacov Web Solutions</div>
+            <div class="lang-switcher">
+                <button onclick="changeLanguage('fr')">FR</button>
+                <button onclick="changeLanguage('en')">EN</button>
+                <button onclick="changeLanguage('he')">HE</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Section héro -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Votre absence numérique vous coûte des clients chaque jour</h1>
+            <p class="hero-subtitle">87% des consommateurs vérifient un site web avant d'acheter - Ne soyez plus invisible !</p>
+            <div class="hero-cta">
+                <a href="#pricing" class="btn">Démarrer mon projet dès aujourd'hui</a>
+                <div class="trust-badge">
+                    <i class="fas fa-shield-alt"></i> <span>+152 projets livrés avec succès</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pourquoi nous choisir -->
+    <section class="why-us scroll-animation">
+        <h2 class="section-title">Pourquoi 9 clients sur 10 nous recommandent</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-chart-line feature-icon"></i>
+                <h3>Multipliez votre visibilité</h3>
+                <p>Augmentation moyenne de 230% du trafic web dans les 3 premiers mois</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-lock feature-icon"></i>
+                <h3>100% Sécurisé & Garanti</h3>
+                <p>Hébergement haute performance avec certificat SSL inclus</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-clock feature-icon"></i>
+                <h3>Rapide & Efficace</h3>
+                <p>Délais tenus - Site prêt en 7 jours ouvrables pour les projets standard</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Témoignages -->
+    <section class="testimonials scroll-animation">
+        <h2 class="section-title">Nos clients témoignent</h2>
+        <div class="features-grid">
+            <div class="testimonial-card">
+                <p>"Notre site a généré 58 000€ de CA supplémentaire en 6 mois. Le meilleur investissement marketing de l'année !"</p>
+                <h4>Marc Benillouche, Luxe Auto Import</h4>
+            </div>
+            <div class="testimonial-card">
+                <p>"Une refonte complète en 10 jours seulement. Notre taux de conversion a doublé grâce à leur expertise UX."</p>
+                <h4>Sarah Cohen, Maison d'Hôtes Élégance</h4>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grille tarifaire -->
+    <section id="pricing" class="pricing">
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Site Vitrine</h3>
+                <div class="price">2000-3000 ₪</div>
+                <ul>
+                    <li>✓ Nom de domaine offert 1 an</li>
+                    <li>✓ Design premium responsive</li>
+                    <li>✓ Optimisation SEO de base</li>
+                    <li>✓ Statistiques mensuelles</li>
+                </ul>
+                <div id="paypal-button-container-VITRINE" class="paypal-button-container"></div>
+            </div>
+
+            <div class="pricing-card">
+                <div class="badge">Populaire</div>
+                <h3>Boutique en ligne</h3>
+                <div class="price">4000-6000 ₪</div>
+                <ul>
+                    <li>✓ Jusqu'à 50 produits</li>
+                    <li>✓ Paiement sécurisé PayPal/Stripe</li>
+                    <li>✓ Gestion de stocks</li>
+                    <li>✓ Formation vidéo illimitée</li>
+                </ul>
+                <div id="paypal-button-container-BOUTIQUE" class="paypal-button-container"></div>
+            </div>
+
+            <div class="pricing-card">
+                <h3>Solution Premium</h3>
+                <div class="price">8000 ₪+</div>
+                <ul>
+                    <li>✓ Site 100% sur mesure</li>
+                    <li>✓ Intégration CRM</li>
+                    <li>✓ Marketing automatisé</li>
+                    <li>✓ Assistance 24/7</li>
+                </ul>
+                <div id="paypal-button-container-PREMIUM" class="paypal-button-container"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq scroll-animation">
+        <h2>Questions Fréquentes</h2>
+        <div class="faq-item">
+            <h3><i class="fas fa-question-circle"></i> Comment vérifier la disponibilité de mon nom de domaine ?</h3>
+            <p>Nous nous chargeons de toutes les vérifications et réservations lors de notre premier contact !</p>
+        </div>
+        <div class="faq-item">
+            <h3><i class="fas fa-credit-card"></i> Puis-je payer en plusieurs fois ?</h3>
+            <p>Absolument ! Solution flexible : 50% à la commande, 50% à la livraison</p>
+        </div>
+    </section>
+
+    <!-- Formulaire de contact -->
+    <section class="contact scroll-animation">
+        <h2 class="section-title">Contact Express</h2>
+        <form class="contact-form" action="https://formspree.io/f/mzzdrdol" method="POST">
+            <div class="form-group">
+                <input type="text" name="name" placeholder="Votre nom" required>
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" placeholder="Votre email" required>
+            </div>
+            <div class="form-group">
+                <textarea name="message" rows="5" placeholder="Décrivez-nous vos ambitions digitales..." required></textarea>
+            </div>
+            <button type="submit" class="btn">Obtenir mon devis gratuit</button>
+            <input type="hidden" name="_next" value="https://yaacovqa.github.io/WebsiteProvider/index.html">
+        </form>
+    </section>
+
+    <!-- Bannière de garantie -->
+    <div class="guarantee-banner">
+        <div class="guarantee-content">
+            <i class="fas fa-certificate"></i>
+            <span>Garantie Satisfait ou Remboursé - 15 jours pour valider votre solution</span>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Configuration PayPal
+        function initPayPalButtons() {
+            paypal.Buttons({
+                style: {
+                    shape: 'rect',
+                    color: 'blue',
+                    layout: 'vertical'
+                },
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: '3000' // À adapter selon le forfait
+                            }
+                        }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        alert('Paiement réussi ! Merci ' + details.payer.name.given_name + ', nous vous contactons sous 24h.');
+                    });
+                }
+            }).render('#paypal-button-container-VITRINE');
+
+            // Répéter pour les autres boutons avec des montants différents
+        }
+
+        // Initialisation après chargement du SDK
+        if(window.paypal) {
+            initPayPalButtons();
+        } else {
+            document.querySelector('#paypal-button-container-VITRINE').onload = initPayPalButtons;
+        }
+
+        // Gestion du panier
+        let panier = [];
+        document.querySelectorAll('.pricing-card button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Logique d'ajout au panier
+            });
+        });
+
+        // Animations au défilement
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.scroll-animation').forEach((el) => {
+            observer.observe(el);
+        });
+
+        // Changement de langue
+        function changeLanguage(lang) {
+            // Implémentation multilingue à compléter
+        }
+    </script>
+    
     <!-- Ajout du panier -->
     <div class="cart-overlay"></div>
     <div class="cart-modal">
