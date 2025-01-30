@@ -3,14 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yaacov WebPro Solutions - Leadership Digital Garanti</title>
+    <title>Yaacov WebPro Solutions - Excellence Numérique</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    <script src="https://www.paypal.com/sdk/js?client-id=VOTRE_ID_CLIENT_PAYPAL&currency=EUR"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://www.paypal.com/sdk/js?client-id=VOTRE_ID_CLIENT_PAYPAL&currency=EUR" defer></script>
     
-    <!-- Styles révisés -->
     <style>
-        /* Reset et polices modernes */
+        :root {
+            --primary: #2563eb;
+            --secondary: #1e40af;
+            --accent: #f59e0b;
+            --light: #f8fafc;
+            --dark: #0f172a;
+            --ease: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -18,57 +25,62 @@
             font-family: 'Inter', sans-serif;
         }
 
-        :root {
-            --primary: #2563eb;
-            --secondary: #1e40af;
-            --accent: #f59e0b;
-            --light: #f8fafc;
-            --dark: #0f172a;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
         body {
             line-height: 1.6;
             color: var(--dark);
             background: #ffffff;
+            overflow-x: hidden;
         }
 
-        /* Header amélioré */
+        /* Header minimaliste */
         header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 1rem;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: var(--shadow);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         nav {
             max-width: 1280px;
             margin: 0 auto;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 2rem;
         }
 
         .logo {
-            font-size: 1.75rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            letter-spacing: -0.5px;
+            color: var(--primary);
+            text-decoration: none;
+            transition: opacity 0.3s var(--ease);
         }
 
-        /* Section héro révisée */
+        .logo:hover {
+            opacity: 0.8;
+        }
+
+        /* Hero section immersive */
         .hero {
-            padding: 12rem 2rem 6rem;
+            padding: 12rem 1rem 6rem;
             text-align: center;
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                        url('https://images.unsplash.com/photo-1496171367470-9ed9a91ea931') center/cover;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
             color: white;
             position: relative;
-            margin-bottom: 4rem;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('https://images.unsplash.com/photo-1496171367470-9ed9a91ea931') center/cover;
+            mix-blend-mode: multiply;
+            z-index: 0;
         }
 
         .hero-content {
@@ -79,147 +91,85 @@
         }
 
         .hero h1 {
-            font-size: 2.5rem;
+            font-size: 2.75rem;
             line-height: 1.2;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         .hero-subtitle {
             font-size: 1.25rem;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
             opacity: 0.9;
+            font-weight: 300;
         }
 
-        /* Sections modernisées */
+        /* Sections modulaires */
+        section {
+            padding: 6rem 1rem;
+            scroll-margin-top: 100px;
+        }
+
         .section-title {
             text-align: center;
-            font-size: 2rem;
+            font-size: 2.25rem;
             margin-bottom: 3rem;
-            color: var(--dark);
             position: relative;
-            padding-bottom: 1rem;
         }
 
         .section-title::after {
             content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
+            width: 60px;
+            height: 4px;
             background: var(--accent);
+            display: block;
+            margin: 1rem auto;
+            border-radius: 2px;
         }
 
-        .features-grid {
+        /* Grid system moderne */
+        .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             max-width: 1280px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 1rem;
         }
 
-        .feature-card {
+        .card {
             background: white;
+            border-radius: 16px;
             padding: 2rem;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s ease;
-            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
         }
 
-        .feature-card:hover {
+        .card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
         }
 
-        .feature-icon {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-        }
-
-        /* Grille tarifaire améliorée */
-        .pricing {
-            padding: 6rem 2rem;
-            background: var(--light);
-        }
-
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2.5rem;
-            max-width: 1280px;
-            margin: 0 auto;
-        }
-
-        .pricing-card {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            position: relative;
-            transition: transform 0.3s ease;
-        }
-
-        .pricing-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .badge {
-            position: absolute;
-            top: -15px;
-            right: 20px;
-            background: var(--accent);
+        /* Éléments interactifs */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: var(--primary);
             color: white;
-            padding: 0.5rem 1rem;
             border-radius: 50px;
-            font-size: 0.875rem;
-            font-weight: 600;
-        }
-
-        .price {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin: 1.5rem 0;
-        }
-
-        /* Footer structuré */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 4rem 2rem;
-            margin-top: 6rem;
-        }
-
-        .footer-content {
-            max-width: 1280px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-        }
-
-        .legal-links {
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            margin-top: 2rem;
-        }
-
-        .legal-links a {
-            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
-            transition: color 0.3s;
+            font-weight: 500;
+            transition: all 0.3s var(--ease);
+            border: 2px solid transparent;
         }
 
-        .legal-links a:hover {
-            color: var(--accent);
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
         }
 
-        /* Ajouts responsive */
+        /* Optimisation mobile */
         @media (max-width: 768px) {
             .hero {
                 padding: 8rem 1rem 4rem;
@@ -229,38 +179,87 @@
                 font-size: 2rem;
             }
 
-            .lang-switcher {
-                display: none;
+            section {
+                padding: 4rem 1rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
             }
         }
 
-        /* Animation WhatsApp */
+        /* Animations performantes */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .scroll-animation {
+            opacity: 0;
+            animation: fadeIn 0.6s var(--ease) forwards;
+        }
+
+        /* Composants spécifiques */
+        .testimonial-card {
+            border-left: 4px solid var(--accent);
+            padding-left: 1.5rem;
+        }
+
+        .pricing-card {
+            text-align: center;
+            position: relative;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 2rem 0;
+            color: var(--primary);
+        }
+
         .whatsapp-float {
             position: fixed;
             bottom: 2rem;
             right: 2rem;
             background: #25D366;
-            padding: 1rem;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+            transition: all 0.3s var(--ease);
         }
 
         .whatsapp-float:hover {
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         }
     </style>
 </head>
 <body>
-    <!-- WhatsApp Float amélioré -->
-    <a href="https://wa.me/+972549431930" class="whatsapp-float" target="_blank">
-        <i class="fab fa-whatsapp" style="color: white; font-size: 2rem;"></i>
+    <a href="https://wa.me/+972549431930" class="whatsapp-float" target="_blank" aria-label="Contact WhatsApp">
+        <i class="fab fa-whatsapp" style="color: white; font-size: 1.75rem;"></i>
     </a>
 
-    <!-- Header -->
     <header>
         <nav>
-            <div class="logo">Yaacov WebPro Solutions</div>
+            <a href="#" class="logo">Yaacov WebPro</a>
             <div class="lang-switcher">
                 <button class="lang-btn" onclick="changeLanguage('fr')">FR</button>
                 <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
@@ -269,231 +268,115 @@
         </nav>
     </header>
 
-    <!-- Sections restantes inchangées mais maintenant stylisées par le nouveau CSS -->
-    <!-- ... (le reste du code HTML existant) ... -->
-
-      <!-- Section héro -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Votre absence numérique vous coûte des clients chaque jour</h1>
-            <p class="hero-subtitle">87% des consommateurs vérifient un site web avant d'acheter - Ne soyez plus invisible !</p>
-            <div class="hero-cta">
-                <a href="#pricing" class="btn">Démarrer mon projet dès aujourd'hui</a>
-                <div class="trust-badge">
-                    <i class="fas fa-shield-alt"></i> <span>+152 projets livrés avec succès</span>
-                </div>
+            <h1 class="scroll-animation">Votre absence numérique vous coûte des clients</h1>
+            <p class="hero-subtitle scroll-animation">87% des consommateurs consultent un site avant d'acheter - Soyez visible !</p>
+            <div class="scroll-animation" style="animation-delay: 0.2s;">
+                <a href="#pricing" class="btn">Démarrer mon projet</a>
             </div>
         </div>
     </section>
 
-    <!-- Pourquoi nous choisir -->
-    <section class="why-us scroll-animation">
-        <h2 class="section-title">Pourquoi 9 clients sur 10 nous recommandent</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <i class="fas fa-chart-line feature-icon"></i>
-                <h3>Multipliez votre visibilité</h3>
-                <p>Augmentation moyenne de 230% du trafic web dans les 3 premiers mois</p>
+    <section class="why-us">
+        <h2 class="section-title scroll-animation">Notre valeur ajoutée</h2>
+        <div class="grid">
+            <div class="card scroll-animation">
+                <i class="fas fa-rocket" style="font-size: 2rem; color: var(--accent); margin-bottom: 1rem;"></i>
+                <h3>Performance garantie</h3>
+                <p>Sites optimisés avec chargement en moins de 1s</p>
             </div>
-            <div class="feature-card">
-                <i class="fas fa-lock feature-icon"></i>
-                <h3>100% Sécurisé & Garanti</h3>
-                <p>Hébergement haute performance avec certificat SSL inclus</p>
+            <div class="card scroll-animation" style="animation-delay: 0.1s;">
+                <i class="fas fa-shield-alt" style="font-size: 2rem; color: var(--accent); margin-bottom: 1rem;"></i>
+                <h3>Sécurité renforcée</h3>
+                <p>Protection avancée contre les cybermenaces</p>
             </div>
-            <div class="feature-card">
-                <i class="fas fa-clock feature-icon"></i>
-                <h3>Rapide & Efficace</h3>
-                <p>Délais tenus - Site prêt en 7 jours ouvrables pour les projets standard</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Témoignages -->
-    <section class="testimonials scroll-animation">
-        <h2 class="section-title">Nos clients témoignent</h2>
-        <div class="features-grid">
-            <div class="testimonial-card">
-                <p>"Notre site a généré 58 000€ de CA supplémentaire en 6 mois. Le meilleur investissement marketing de l'année !"</p>
-                <h4>Marc Benillouche, Luxe Auto Import</h4>
-            </div>
-            <div class="testimonial-card">
-                <p>"Une refonte complète en 10 jours seulement. Notre taux de conversion a doublé grâce à leur expertise UX."</p>
-                <h4>Sarah Cohen, Maison d'Hôtes Élégance</h4>
+            <div class="card scroll-animation" style="animation-delay: 0.2s;">
+                <i class="fas fa-chart-line" style="font-size: 2rem; color: var(--accent); margin-bottom: 1rem;"></i>
+                <h3>Résultats mesurables</h3>
+                <p>Suivi analytique en temps réel inclus</p>
             </div>
         </div>
     </section>
 
-    <!-- Grille tarifaire -->
     <section id="pricing" class="pricing">
-        <div class="pricing-grid">
-            <div class="pricing-card">
+        <h2 class="section-title scroll-animation">Nos solutions</h2>
+        <div class="grid">
+            <div class="card pricing-card scroll-animation">
                 <h3>Site Vitrine</h3>
                 <div class="price">2000-3000 ₪</div>
-                <ul>
-                    <li>✓ Nom de domaine offert 1 an</li>
-                    <li>✓ Design premium responsive</li>
-                    <li>✓ Optimisation SEO de base</li>
-                    <li>✓ Statistiques mensuelles</li>
+                <ul style="text-align: left; list-style: none; margin-bottom: 2rem;">
+                    <li>✓ Design responsive premium</li>
+                    <li>✓ SEO de base intégré</li>
+                    <li>✓ Hébergement inclus</li>
                 </ul>
-                <div id="paypal-button-container-VITRINE" class="paypal-button-container"></div>
+                <a href="#contact" class="btn">Choisir</a>
             </div>
-
-            <div class="pricing-card">
-                <div class="badge">Populaire</div>
-                <h3>Boutique en ligne</h3>
+            <div class="card pricing-card scroll-animation" style="animation-delay: 0.1s;">
+                <h3>E-commerce</h3>
                 <div class="price">4000-6000 ₪</div>
-                <ul>
+                <ul style="text-align: left; list-style: none; margin-bottom: 2rem;">
                     <li>✓ Jusqu'à 50 produits</li>
-                    <li>✓ Paiement sécurisé PayPal/Stripe</li>
+                    <li>✓ Paiements sécurisés</li>
                     <li>✓ Gestion de stocks</li>
-                    <li>✓ Formation vidéo illimitée</li>
                 </ul>
-                <div id="paypal-button-container-BOUTIQUE" class="paypal-button-container"></div>
+                <a href="#contact" class="btn">Choisir</a>
             </div>
-
-            <div class="pricing-card">
-                <h3>Solution Premium</h3>
+            <div class="card pricing-card scroll-animation" style="animation-delay: 0.2s;">
+                <h3>Solution Sur Mesure</h3>
                 <div class="price">8000 ₪+</div>
-                <ul>
-                    <li>✓ Site 100% sur mesure</li>
+                <ul style="text-align: left; list-style: none; margin-bottom: 2rem;">
+                    <li>✓ Développement personnalisé</li>
                     <li>✓ Intégration CRM</li>
-                    <li>✓ Marketing automatisé</li>
-                    <li>✓ Assistance 24/7</li>
+                    <li>✓ Support 24/7</li>
                 </ul>
-                <div id="paypal-button-container-PREMIUM" class="paypal-button-container"></div>
+                <a href="#contact" class="btn">Choisir</a>
             </div>
         </div>
     </section>
 
-    <!-- FAQ -->
-    <section class="faq scroll-animation">
-        <h2>Questions Fréquentes</h2>
-        <div class="faq-item">
-            <h3><i class="fas fa-question-circle"></i> Comment vérifier la disponibilité de mon nom de domaine ?</h3>
-            <p>Nous nous chargeons de toutes les vérifications et réservations lors de notre premier contact !</p>
-        </div>
-        <div class="faq-item">
-            <h3><i class="fas fa-credit-card"></i> Puis-je payer en plusieurs fois ?</h3>
-            <p>Absolument ! Solution flexible : 50% à la commande, 50% à la livraison</p>
-        </div>
-    </section>
-
-    <!-- Formulaire de contact -->
-    <section class="contact scroll-animation">
-        <h2 class="section-title">Contact Express</h2>
-        <form class="contact-form" action="https://formspree.io/f/mzzdrdol" method="POST">
-            <div class="form-group">
-                <input type="text" name="name" placeholder="Votre nom" required>
-            </div>
-            <div class="form-group">
-                <input type="email" name="email" placeholder="Votre email" required>
-            </div>
-            <div class="form-group">
-                <textarea name="message" rows="5" placeholder="Décrivez-nous vos ambitions digitales..." required></textarea>
-            </div>
-            <button type="submit" class="btn">Obtenir mon devis gratuit</button>
-            <input type="hidden" name="_next" value="https://yaacovqa.github.io/WebsiteProvider/index.html">
-        </form>
-    </section>
-
-    <!-- Bannière de garantie -->
-    <div class="guarantee-banner">
-        <div class="guarantee-content">
-            <i class="fas fa-certificate"></i>
-            <span>Garantie Satisfait ou Remboursé - 15 jours pour valider votre solution</span>
-        </div>
-    </div>
-    
-    <!-- Nouveau footer structuré -->
     <footer>
         <div class="footer-content">
             <div>
                 <h4>Contact</h4>
-                <p>contact@yaacovweb.com</p>
-                <p>+972 54 943 1930</p>
+                <p>contact@yaacovweb.com<br>+972 54 943 1930</p>
             </div>
             <div>
                 <h4>Légal</h4>
-                <div class="legal-links">
-                    <a href="#conditions-generales">CGV</a>
-                    <a href="#confidentialite">Confidentialité</a>
-                    <a href="#mentions">Mentions légales</a>
-                </div>
+                <p>CGV<br>Mentions légales<br>Confidentialité</p>
             </div>
             <div>
                 <h4>Réseaux</h4>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
+                <p>LinkedIn<br>Facebook<br>Instagram</p>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts (inchangés) -->
     <script>
-        // ... (le code JavaScript existant reste inchangé) ...
-         // Configuration PayPal
-        function initPayPalButtons() {
-            paypal.Buttons({
-                style: {
-                    shape: 'rect',
-                    color: 'blue',
-                    layout: 'vertical'
-                },
-                createOrder: function(data, actions) {
-                    return actions.order.create({
-                        purchase_units: [{
-                            amount: {
-                                value: '3000' // À adapter selon le forfait
-                            }
-                        }]
-                    });
-                },
-                onApprove: function(data, actions) {
-                    return actions.order.capture().then(function(details) {
-                        alert('Paiement réussi ! Merci ' + details.payer.name.given_name + ', nous vous contactons sous 24h.');
-                    });
-                }
-            }).render('#paypal-button-container-VITRINE');
-
-            // Répéter pour les autres boutons avec des montants différents
-        }
-
-        // Initialisation après chargement du SDK
-        if(window.paypal) {
-            initPayPalButtons();
-        } else {
-            document.querySelector('#paypal-button-container-VITRINE').onload = initPayPalButtons;
-        }
-
-        // Gestion du panier
-        let panier = [];
-        document.querySelectorAll('.pricing-card button').forEach(btn => {
-            btn.addEventListener('click', function() {
-                // Logique d'ajout au panier
-            });
-        });
-
-        // Animations au défilement
+        // Intersection Observer pour les animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if(entry.isIntersecting) {
-                    entry.target.classList.add('active');
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
                 }
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('.scroll-animation').forEach((el) => {
-            observer.observe(el);
-        });
+        document.querySelectorAll('.scroll-animation').forEach(el => observer.observe(el));
 
-        // Changement de langue
+        // Gestion du changement de langue
         function changeLanguage(lang) {
-            // Implémentation multilingue à compléter
+            console.log(`Changement de langue vers: ${lang}`);
+            // Implémentation à adapter avec i18n
         }
-   
+
+        // Optimisation des ressources
+        document.addEventListener('DOMContentLoaded', () => {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/sw.js');
+            }
+        });
     </script>
 </body>
 </html>
